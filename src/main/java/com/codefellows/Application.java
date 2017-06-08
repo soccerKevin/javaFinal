@@ -1,4 +1,4 @@
-package org.example;
+package com.codefellows;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
