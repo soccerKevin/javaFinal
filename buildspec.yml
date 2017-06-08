@@ -11,6 +11,7 @@ phases:
       - apt-get install -y maven
   build:
     commands:
+      - rm -f /usr/share/maven/boot/plexus-classworlds-2.5.2.jar
       - ls -la /usr/share/maven/boot
       - mvn package
       - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
