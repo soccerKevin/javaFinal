@@ -1,21 +1,8 @@
 version: 0.1
 
-env:
-  variables:
-    M2_HOME: "/usr/share/maven"
-    M2: "$M2_HOME/bin"
-    MAVEN_OPTS: "-Xmx4096m"
-    PATH: "$M2:$PATH"
-
 phases:
-  install:
-    commands:
-      - apt-get update -y
-      - apt-get install -y maven
   build:
     commands:
-      - java -version
-      - whereis javac
       - rm -f /usr/share/maven/boot/plexus-classworlds-2.5.2.jar
       - mvn package
       - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
