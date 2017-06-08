@@ -1,8 +1,0 @@
-{"namespace": "avro.models",
-  "type": "record",
-  "name": "SimpleMessage",
-  "fields": [
-    {"name": "message", "type": "string"},
-    {"name": "timestamp",  "type": "string"}
-  ]
-}

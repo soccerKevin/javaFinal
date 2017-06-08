@@ -1,13 +1,13 @@
-package com.pariveda.zonar.gcpdemo;
+package com.codefellows;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple DataPipeline.
+ * Unit test for simple App.
  */
-public class DataPipelineTest
+public class AppTest 
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class DataPipelineTest
      *
      * @param testName name of the test case
      */
-    public DataPipelineTest(String testName )
+    public AppTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class DataPipelineTest
      */
     public static Test suite()
     {
-        return new TestSuite( DataPipelineTest.class );
+        return new TestSuite( AppTest.class );
     }
 
     /**

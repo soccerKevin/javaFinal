@@ -4,8 +4,8 @@ phases:
   build:
     commands:
       - mvn package
-      - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
+      - mv target/seattle-java-501n1-project-1.0-SNAPSHOT.jar ./
 artifacts:
   files:
-    - gcp-container-engine-demo-1.0-SNAPSHOT.jar
+    - seattle-java-501n1-project-1.0-SNAPSHOT.jar
   discard-paths: yes
