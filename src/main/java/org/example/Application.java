@@ -16,7 +16,7 @@ public class Application {
     }
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(5000); //
+        Server server = new Server(80); //
         ServletHandler handler = new ServletHandler();
         handler.addServletWithMapping(HomeServlet.class, "/*");
         server.setHandler(handler);
