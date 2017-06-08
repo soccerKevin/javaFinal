@@ -3,7 +3,6 @@ version: 0.1
 env:
   variables:
     JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
-    M2_HOME: "/usr/share/maven"
 
 phases:
   install:
@@ -14,6 +13,8 @@ phases:
     commands:
       - rm -f /usr/share/maven/boot/plexus-classworlds-2.5.2.jar
       - ls -la /usr/share/maven/boot
+      - env
+      - mvn -version
       - mvn package
       - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
 artifacts:
