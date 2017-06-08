@@ -14,6 +14,8 @@ phases:
       - rm -f /usr/share/maven/boot/plexus-classworlds-2.5.2.jar
       - ls -la /usr/share/maven/boot
       - env
+      - echo $PATH
+      - whereis mvn
       - mvn -version
       - mvn package
       - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
