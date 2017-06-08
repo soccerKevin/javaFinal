@@ -1,0 +1,6 @@
+avro/models/SimpleMessage.class
+com/pariveda/zonar/gcpdemo/RequestHandler.class
+com/pariveda/zonar/gcpdemo/DataPipeline.class
+avro/models/SimpleMessage$1.class
+avro/models/SimpleMessage$Builder.class
+com/pariveda/zonar/gcpdemo/MessagePublisher.class
