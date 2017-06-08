@@ -3,7 +3,6 @@ version: 0.1
 phases:
   build:
     commands:
-      - rm -f /usr/share/maven/boot/plexus-classworlds-2.5.2.jar
       - mvn package
       - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
 artifacts:
