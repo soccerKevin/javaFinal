@@ -9,8 +9,9 @@ phases:
     commands:
       - apt-get update -y
       - apt-get install -y maven
-  post_build:
+  build:
     commands:
+      - ls -la /usr/share/maven/boot
       - mvn package
       - mv target/gcp-container-engine-demo-1.0-SNAPSHOT.jar ./
 artifacts:
