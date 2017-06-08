@@ -9,6 +9,8 @@ public class Application {
     }
 
     public static void main(String[] args) {
+        port(5000);
+
         get("/hello/:name", (request, response) -> {
             return "Hello: " + request.params(":name");
         });
