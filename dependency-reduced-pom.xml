@@ -20,7 +20,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.codefellows.Application</mainClass>
+                  <mainClass>com.codefellows.ZooApi</mainClass>
                 </transformer>
               </transformers>
             </configuration>
