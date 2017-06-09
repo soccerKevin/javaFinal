@@ -26,6 +26,10 @@ public class ZooApi {
         return "Hello: " + request.params(":name");
     });
 
+    get("/age/:age", (request, response) -> {
+        return "you are: " + request.params(":age") + "years old";
+    });
+
     Connection con = ZooUtils.getConnection();
     ZooUtils.viewTable(con);
 
