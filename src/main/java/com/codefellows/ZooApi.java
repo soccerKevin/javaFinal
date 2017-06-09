@@ -10,25 +10,25 @@ import static spark.Spark.get;
 import static spark.Spark.port;
 
 public class ZooApi {
-    private static final Logger LOG = LoggerFactory.getLogger(ZooApi.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ZooApi.class);
 
-    private static int getPort() {
-        return Integer.parseInt(System.getenv().get("PORT"));
-    }
+  private static int getPort() {
+    return Integer.parseInt(System.getenv().get("PORT"));
+  }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        int port = getPort();
+  public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    int port = getPort();
 
-        LOG.info("Starting API server on port " + port);
-        port(port);
+    LOG.info("Starting API server on port " + port);
+    port(port);
 
-        get("/hello/:name", (request, response) -> {
-            return "Hello: " + request.params(":name");
-        });
+    get("/hello/:name", (request, response) -> {
+        return "Hello: " + request.params(":name");
+    });
 
-        Connection con = ZooUtils.getConnection();
-        ZooUtils.viewTable(con);
+    Connection con = ZooUtils.getConnection();
+    ZooUtils.viewTable(con);
 
-        con.close();
-    }
+    con.close();
+  }
 }
