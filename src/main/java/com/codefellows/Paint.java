@@ -10,7 +10,9 @@ public class Paint {
         frame.setLayout(new BorderLayout());
 
         InputPanel inputPanel = new InputPanel();
-        frame.add(inputPanel);
+        PaintPanel paintPanel = new PaintPanel(inputPanel);
+        frame.add(inputPanel, BorderLayout.WEST);
+        frame.add(paintPanel, BorderLayout.EAST);
 
         frame.pack();
         frame.setVisible(true);
