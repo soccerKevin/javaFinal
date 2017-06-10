@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InputPanel extends JPanel{
-    private JButton rectangleButton, circleButton, lineButton, colorButton, quitButton;
+    private JButton rectangleButton, circleButton, lineButton, colorButton, penButton, clearButton, quitButton;
     private JCheckBox filledBox;
     private JLabel colorLabel;
     private ShapeType shapeType;
@@ -16,12 +16,14 @@ public class InputPanel extends JPanel{
         circleButton = new JButton("Circle");
         lineButton = new JButton("Line");
         colorButton = new JButton("Color...");
+        penButton = new JButton("Pen");
+        clearButton = new JButton("Clear");
         quitButton = new JButton("Quit");
 
         filledBox = new JCheckBox("Filled", false);
         colorLabel = new JLabel("Current Color: ");
 
-        shapeType = ShapeType.LINE;
+        shapeType = ShapeType.RECTANGLE;
         currentColor = Color.BLUE;
 
         coloredSquare = new ColoredSquare(currentColor);
@@ -43,6 +45,10 @@ public class InputPanel extends JPanel{
             coloredSquare.updateColor(currentColor);
         });
 
+        penButton.addActionListener(e -> {
+            shapeType = ShapeType.PEN;
+        });
+
         quitButton.addActionListener(e ->{
             System.exit(0);
         });
@@ -56,7 +62,9 @@ public class InputPanel extends JPanel{
         filledBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         colorButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         colorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        penButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         coloredSquare.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         Dimension dim = new Dimension(5, 5);
@@ -82,7 +90,17 @@ public class InputPanel extends JPanel{
         add(coloredSquare);
         add(new Box.Filler(dim, dim, dim));
 
+        add(penButton);
+        add(new Box.Filler(dim, dim, dim));
+
+        add(clearButton);
+        add(new Box.Filler(dim, dim, dim));
+
         add(quitButton);
+    }
+
+    public JButton getClearButton(){
+        return clearButton;
     }
 
     public boolean isFilledBoxChecked() {

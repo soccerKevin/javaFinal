@@ -14,9 +14,9 @@ public class Circle extends Shape{
         canvas.setColor(color);
 
         if(isFilled){
-            canvas.fillOval(x, y, radius * 2, radius * 2);
+            canvas.fillOval(x - radius + 1, y - radius + 1, radius * 2, radius * 2);
         }else{
-            canvas.drawOval(x, y, radius * 2, radius * 2);
+            canvas.drawOval(x - radius + 1, y - radius + 1, radius * 2, radius * 2);
         }
     }
 }
