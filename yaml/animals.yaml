@@ -1,11 +1,11 @@
 animals:
 - name: zebra
-  icon: zebra
+  icon: zebra.jpg
 - name: alligator
-  icon: alligator
+  icon: alligator.jpg
 - name: giraffe
-  icon: giraffe
+  icon: giraffe.jpg
 - name: rabbit
-  icon: rabbit
+  icon: rabbit.jpg
 - name: tiger
-  icon: tiger
+  icon: tiger.jpg

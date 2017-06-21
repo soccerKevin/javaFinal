@@ -38,7 +38,7 @@ public class Zoo {
         while(ai.hasNext()){
             Map animal = (Map) ai.next();
             String name = (String) animal.get("name");
-            String icon = String.format("assets/images/%s.jpg" , animal.get("icon"));
+            String icon = String.format("assets/images/%s" , animal.get("icon"));
             Animal a = new Animal(name, icon);
             animals.add(a);
         }
