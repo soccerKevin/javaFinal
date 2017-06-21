@@ -9,10 +9,11 @@ public class AnimalPanel extends JPanel{
     private int width, height;
 
     public AnimalPanel(ArrayList<Animal> animals, int width, int height){
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.animals = animals;
         this.width = width;
         this.height = height;
+        setSize(new Dimension(width, height));
+        setLayout(new GridLayout(animals.size(), 1));
         addAnimals();
     }
 
@@ -33,6 +34,7 @@ public class AnimalPanel extends JPanel{
             this.image = image;
             this.width = width;
             this.height = height;
+            System.out.println("width: " + width + ", height: " + height);
             setSize(new Dimension(width, height));
         }
 
