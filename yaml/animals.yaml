@@ -4,7 +4,7 @@ animals:
 - name: alligator
   icon: alligator.jpg
 - name: giraffe
-  icon: giraffe.jpg
+  icon: giraffe.png
 - name: rabbit
   icon: rabbit.jpg
 - name: tiger

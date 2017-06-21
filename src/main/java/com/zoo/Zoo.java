@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import com.esotericsoftware.yamlbeans.*;
 
 public class Zoo {
+    private static final int width = 500;
+    private static final int height = 400;
     private String name;
     private JFrame campusFrame;
     private AnimalPanel animalPanel;
@@ -22,9 +24,9 @@ public class Zoo {
         createAnimals();
 
         campusFrame = new JFrame(name);
-        campusFrame.setSize(400, 300);
+        campusFrame.setSize(width, height);
 
-        animalPanel = new AnimalPanel(animals);
+        animalPanel = new AnimalPanel(animals, 100, height);
 
         campusFrame.add(animalPanel);
         campusFrame.setVisible(true);
