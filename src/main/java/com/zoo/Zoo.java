@@ -1,15 +1,7 @@
 package com.zoo;
 import javax.swing.*;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Hashtable;
-import java.nio.file.Paths;
-import com.esotericsoftware.yamlbeans.*;
+import java.awt.*;
 
 public class Zoo {
     private static final int width = 500;
@@ -17,6 +9,7 @@ public class Zoo {
     private String name;
     private JFrame campusFrame;
     private AnimalPanel animalPanel;
+    private ZooPanel zooPanel;
     private ArrayList<Animal> animals = new ArrayList(10);
 
     public Zoo(String name){
@@ -27,8 +20,11 @@ public class Zoo {
         campusFrame.setSize(width, height);
 
         animalPanel = new AnimalPanel(animals, 100, height);
+        zooPanel = new ZooPanel(new Point(100, 0), new Dimension(width - 100, height));
+        zooPanel.addAnimal(animals.get(0));
 
         campusFrame.add(animalPanel);
+        campusFrame.add(zooPanel);
         campusFrame.setVisible(true);
     }
 }

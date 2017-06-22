@@ -6,14 +6,12 @@ import java.util.Iterator;
 
 public class AnimalPanel extends JPanel{
     private ArrayList<Animal> animals;
-    private int width, height;
 
     public AnimalPanel(ArrayList<Animal> animals, int width, int height){
         this.animals = animals;
-        this.width = width;
-        this.height = height;
         setSize(new Dimension(width, height));
         setLayout(new GridLayout(animals.size(), 1));
+        setBackground(Color.GREEN);
         addAnimals();
     }
 
@@ -21,26 +19,24 @@ public class AnimalPanel extends JPanel{
         Iterator<Animal> animalsIterator = animals.iterator();
         while(animalsIterator.hasNext()){
             Animal animal = animalsIterator.next();
-            add( new AnimalButton( new ImageIcon( animal.imagePath() ).getImage(), animal.name(), width, (int) height / animals.size() ) );
+            add( new AnimalButton( new ImageIcon( animal.imagePath() ).getImage(), animal.name(), new Dimension(getSize().width, (int) getSize().height / animals.size() ) ) );
         }
     }
 
     private class AnimalButton extends JButton{
         private Image image;
-        private int width, height;
+        private Dimension size;
 
-        public AnimalButton(Image image, String name, int width, int height){
+        public AnimalButton(Image image, String name, Dimension size){
             super(name);
             this.image = image;
-            this.width = width;
-            this.height = height;
-            System.out.println("width: " + width + ", height: " + height);
-            setSize(new Dimension(width, height));
+            this.size = size;
+            setSize(size);
         }
 
         public void paintComponent(Graphics g){
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, width, height, this);
+            g.drawImage(image, 0, 0, getSize().width, getSize().height, this);
         }
     }
 }

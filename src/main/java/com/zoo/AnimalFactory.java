@@ -15,8 +15,8 @@ public class AnimalFactory {
         while(ai.hasNext()){
             Map animal = (Map) ai.next();
             String name = (String) animal.get("name");
-            String icon = String.format("assets/images/%s" , animal.get("icon"));
-            Animal a = new Animal(name, icon);
+            String iconPath = String.format("assets/images/%s" , animal.get("icon"));
+            Animal a = new Animal(name, iconPath);
             animals.add(a);
         }
         return animals;
