@@ -11,7 +11,6 @@ public class AnimalPanel extends JPanel{
         this.animals = animals;
         setSize(new Dimension(width, height));
         setLayout(new GridLayout(animals.size(), 1));
-        setBackground(Color.GREEN);
         addAnimals();
     }
 

@@ -11,7 +11,7 @@ public class ZooPanel extends JPanel{
         setLocation(topLeft);
         setSize(size);
         setOpaque(true);
-        setBackground(Color.BLUE);
+        setBackground(Color.GREEN);
         setVisible(true);
     }
 

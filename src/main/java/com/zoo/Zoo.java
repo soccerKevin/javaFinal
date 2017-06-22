@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.awt.*;
 
 public class Zoo {
-    private static final int width = 500;
-    private static final int height = 400;
+    private static final int width = 800;
+    private static final int height = 600;
     private String name;
     private JFrame campusFrame;
     private AnimalPanel animalPanel;
@@ -19,7 +19,7 @@ public class Zoo {
         campusFrame = new JFrame(name);
         campusFrame.setSize(width, height);
 
-        animalPanel = new AnimalPanel(animals, 100, height);
+        animalPanel = new AnimalPanel(animals, 100, 80 * animals.size());
         zooPanel = new ZooPanel(new Point(100, 0), new Dimension(width - 100, height));
         zooPanel.addAnimal(animals.get(0));
 
