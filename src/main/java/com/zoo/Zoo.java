@@ -18,9 +18,11 @@ public class Zoo {
 
         zooFrame = new JFrame(name);
         zooFrame.setSize(new Dimension(width, height));
+        zooFrame.setLayout(null);
 
         animalPanel = new AnimalPanel(animals, new Dimension(100, 80 * animals.size()));
         campusPanel = new CampusPanel(new Point(100, 0), new Dimension(width - 100, height));
+
         campusPanel.addAnimal(animals.get(0));
 
         zooFrame.add(animalPanel);

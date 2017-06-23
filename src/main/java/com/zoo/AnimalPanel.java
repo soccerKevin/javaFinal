@@ -33,9 +33,12 @@ public class AnimalPanel extends JPanel{
             setSize(size);
         }
 
+        public int width(){ return getSize().width; }
+        public int height(){ return getSize().height; }
+
         public void paintComponent(Graphics g){
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, getSize().width, getSize().height, this);
+            g.drawImage(image, 0, 0, width(), height(), this);
         }
     }
 }

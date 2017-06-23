@@ -4,8 +4,9 @@ import java.util.Iterator;
 import java.awt.*;
 import javax.swing.*;
 
-public class CampusPanel extends JPanel{
+public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
+    private double scale = 1;
 
     public CampusPanel(Point topLeft, Dimension size){
         setLocation(topLeft);
@@ -20,12 +21,27 @@ public class CampusPanel extends JPanel{
         repaint();
     }
 
+    public Dimension scaledSize(){
+        int w = Math.round((float) (scale * getSize().width));
+        int h = Math.round((float) (scale * getSize().height));
+        return new Dimension(w, h);
+    }
+
+    public int width(){ return getSize().width; }
+    public int height(){ return getSize().height; }
+
     public void paintComponent(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+        g2.translate(width() / 2, height() / 2);
+        g2.scale(scale, scale);
+        g2.translate( width() / -2, height() / -2);
+
         super.paintComponent(g);
         Iterator ai = animals.iterator();
 
         while(ai.hasNext()){
             Animal animal = (Animal) ai.next();
+            animal.setScale(scale);
             animal.paintComponent(g);
         }
     }

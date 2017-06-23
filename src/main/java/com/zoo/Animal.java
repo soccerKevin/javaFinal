@@ -7,6 +7,7 @@ public class Animal extends JPanel{
     private String name, imagePath;
     private Image image;
     private UUID uuid;
+    private double scale = 1;
 
     public Animal(String name, String imagePath){
         super();
@@ -14,6 +15,10 @@ public class Animal extends JPanel{
         this.imagePath = imagePath;
         this.image = new ImageIcon( imagePath ).getImage();
         this.uuid = UUID.randomUUID();
+    }
+
+    public void setScale(double scale){
+        this.scale = scale;
     }
 
     public Animal softClone(){
@@ -25,9 +30,13 @@ public class Animal extends JPanel{
         return name;
     }
     public String imagePath(){ return imagePath; }
+    public int width(){ return getSize().width; }
+    public int height(){ return getSize().height; }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, getSize().width, getSize().height, this);
+        int w = Math.round((float) scale * width());
+        int h = Math.round((float) scale * height());
+        g.drawImage(image, 0, 0, w, h, this);
     }
 }
