@@ -2,6 +2,7 @@ package com.zoo;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.awt.*;
+import java.awt.event.*;
 
 public class Zoo {
     private static final int width = 800;
@@ -12,7 +13,7 @@ public class Zoo {
     private CampusPanel campusPanel;
     private ArrayList<Animal> animals = new ArrayList(10);
 
-    public Zoo(String name){
+    public Zoo(String name) {
         this.name = name;
         this.animals = AnimalFactory.createAnimals();
 
@@ -21,9 +22,14 @@ public class Zoo {
         zooFrame.setLayout(null);
 
         animalPanel = new AnimalPanel(animals, new Dimension(100, 80 * animals.size()));
+        animalPanel.addPanelListener(new PanelListener(){
+            public void animalClicked(Animal animal){
+                animal.setLocation(new Point(100, 100));
+                campusPanel.addAnimal(animal);
+                campusPanel.repaint();
+            }
+        });
         campusPanel = new CampusPanel(new Point(100, 0), new Dimension(width - 100, height));
-
-        campusPanel.addAnimal(animals.get(0));
 
         zooFrame.add(animalPanel);
         zooFrame.add(campusPanel);

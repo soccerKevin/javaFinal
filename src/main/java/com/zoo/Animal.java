@@ -15,6 +15,7 @@ public class Animal extends JPanel{
         this.imagePath = imagePath;
         this.image = new ImageIcon( imagePath ).getImage();
         this.uuid = UUID.randomUUID();
+        setBackground(new Color(0, 0, 0, 0));
     }
 
     public void setScale(double scale){
@@ -35,8 +36,10 @@ public class Animal extends JPanel{
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        int w = Math.round((float) scale * width());
-        int h = Math.round((float) scale * height());
-        g.drawImage(image, 0, 0, w, h, this);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.translate(width() / 2, height() / 2);
+        g2.scale(scale, scale);
+        g2.translate( width() / -2, height() / -2);
+        g2.drawImage(image, 0, 0, width(), height(), this);
     }
 }
