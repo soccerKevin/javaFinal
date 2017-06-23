@@ -7,9 +7,9 @@ import java.util.Iterator;
 public class AnimalPanel extends JPanel{
     private ArrayList<Animal> animals;
 
-    public AnimalPanel(ArrayList<Animal> animals, int width, int height){
+    public AnimalPanel(ArrayList<Animal> animals, Dimension size){
         this.animals = animals;
-        setSize(new Dimension(width, height));
+        setSize(size);
         setLayout(new GridLayout(animals.size(), 1));
         addAnimals();
     }

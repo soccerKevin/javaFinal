@@ -4,10 +4,10 @@ import java.util.Iterator;
 import java.awt.*;
 import javax.swing.*;
 
-public class ZooPanel extends JPanel{
+public class CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
 
-    public ZooPanel(Point topLeft, Dimension size){
+    public CampusPanel(Point topLeft, Dimension size){
         setLocation(topLeft);
         setSize(size);
         setOpaque(true);
