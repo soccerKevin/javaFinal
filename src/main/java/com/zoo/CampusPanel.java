@@ -29,6 +29,7 @@ public class  CampusPanel extends JPanel{
     }
 
     public void addAnimal(Animal animal){
+        animal.addParent(this);
         animals.add(animal);
         add(animal);
     }
