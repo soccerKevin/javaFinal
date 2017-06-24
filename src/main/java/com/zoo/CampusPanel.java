@@ -2,6 +2,8 @@ package com.zoo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 public class  CampusPanel extends JPanel{
@@ -13,11 +15,14 @@ public class  CampusPanel extends JPanel{
         setSize(size);
         setOpaque(true);
         setBackground(Color.GREEN);
+        setLayout(null);
+        addMouseMotionListener(new CampusMouseListener());
         setVisible(true);
     }
 
     public void addAnimal(Animal animal){
         animals.add(animal);
+        add(animal);
         repaint();
     }
 
@@ -41,9 +46,14 @@ public class  CampusPanel extends JPanel{
 
         while(ai.hasNext()){
             Animal animal = (Animal) ai.next();
-            animal.setSize(new Dimension(100, 100));
+            animal.setSize(new Dimension(((int) scale * 100), ((int) scale * 100) ));
             animal.setScale(scale);
-            animal.paintComponent(g);
         }
+    }
+
+    private class CampusMouseListener extends MouseAdapter{
+//        public void mouseDragged(MouseEvent e){
+//            System.out.println("campus dragged");
+//        }
     }
 }

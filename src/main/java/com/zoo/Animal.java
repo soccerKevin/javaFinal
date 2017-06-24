@@ -1,6 +1,8 @@
 package com.zoo;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.UUID;
 
 public class Animal extends JPanel{
@@ -16,6 +18,8 @@ public class Animal extends JPanel{
         this.image = new ImageIcon( imagePath ).getImage();
         this.uuid = UUID.randomUUID();
         setBackground(new Color(0, 0, 0, 0));
+        addMouseMotionListener(new AnimalMouseAdapter());
+        setVisible(true);
     }
 
     public void setScale(double scale){
@@ -41,5 +45,12 @@ public class Animal extends JPanel{
         g2.scale(scale, scale);
         g2.translate( width() / -2, height() / -2);
         g2.drawImage(image, 0, 0, width(), height(), this);
+    }
+
+    public class AnimalMouseAdapter extends MouseAdapter{
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            setLocation(e.getLocationOnScreen().x - 200, e.getLocationOnScreen().y - 100);
+        }
     }
 }
