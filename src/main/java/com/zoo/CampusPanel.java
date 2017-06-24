@@ -12,12 +12,13 @@ public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
     private double scale = 1;
     private double scrollScale = .01;
-    private Dimension originalSize;
+    private Dimension originalSize, parentSize;
     private Point currentLocation, originalMouseLocation;
 
-    public CampusPanel(Point topLeft, Dimension size){
-        setLocation(topLeft);
+    public CampusPanel(Point topLeft, Dimension size, Dimension parentSize){
         originalSize = size;
+        this.parentSize = parentSize;
+        setLocation(topLeft);
         setSize(size);
         setOpaque(true);
         setBackground(Color.GREEN);
@@ -96,7 +97,9 @@ public class  CampusPanel extends JPanel{
             int dx = originalMouseLocation.x - e.getLocationOnScreen().x;
             int dy = originalMouseLocation.y - e.getLocationOnScreen().y;
             int newX = Math.min(0, currentLocation.x - dx);
-            int newY = Math.min(0,currentLocation.y - dy);
+            int newY = Math.min(0, currentLocation.y - dy);
+            newX = Math.max(newX, -(width() - parentSize.width) );
+            newY = Math.max(newY, -(height() - parentSize.height) );
             superSetLocation(new Point(newX, newY));
         }
     }

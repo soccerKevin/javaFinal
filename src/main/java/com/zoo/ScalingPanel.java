@@ -13,7 +13,7 @@ public class ScalingPanel extends JPanel{
         setLayout(null);
         mouseWheelListener();
         setVisible(true);
-        campusPanel = new CampusPanel(new Point(0, 0), new Dimension(2000, 2000));
+        campusPanel = new CampusPanel(new Point(0, 0), new Dimension(2000, 2000), new Dimension(width(), height()));
         add(campusPanel);
     }
 
