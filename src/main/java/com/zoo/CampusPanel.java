@@ -1,10 +1,10 @@
 package com.zoo;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseWheelEvent;
+import java.awt.*;
+
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
@@ -12,46 +12,47 @@ public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
     private double scale = 1;
     private double scrollScale = .01;
+    private Dimension originalSize, parentSize;
+    private Point currentLocation, originalMouseLocation;
 
-    public CampusPanel(Point topLeft, Dimension size){
+    public CampusPanel(Point topLeft, Dimension size, Dimension parentSize){
+        originalSize = size;
+        this.parentSize = parentSize;
         setLocation(topLeft);
         setSize(size);
         setOpaque(true);
         setBackground(Color.GREEN);
         setLayout(null);
-        addMouseMotionListener(new CampusMouseListener());
-        mouseWheelListener();
+        addMouseMotionListener(new MouseDragAdapter());
+        addMouseListener(new MouseActionAdapter());
         setVisible(true);
     }
 
-    private void mouseWheelListener(){
-        addMouseWheelListener((e) -> {
-            scale += (e.getUnitsToScroll() > 0 ? scrollScale : -scrollScale);
-            repaint();
-        });
-    }
-
     public void addAnimal(Animal animal){
+        animal.addParent(this);
         animals.add(animal);
         add(animal);
+        animal.setScale(scale);
     }
 
-    public Dimension scaledSize(){
-        int w = Math.round((float) (scale * getSize().width));
-        int h = Math.round((float) (scale * getSize().height));
-        return new Dimension(w, h);
+    public void scale(MouseWheelEvent e){
+        if(e.getUnitsToScroll() > 0) {
+            scale += scrollScale;
+        }else {
+            if (scale == 1) return;
+            scale -= scrollScale;
+            if (scale < 1) scale = 1;
+        }
+        e.getY();
+        rescale();
     }
 
-    public int width(){ return getSize().width; }
-    public int height(){ return getSize().height; }
+    private void rescale(){
+        scaleSize();
+        rescaleAnimals();
+    }
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-//        Graphics2D g2 = (Graphics2D) g;
-//        g2.translate(width() / 2, height() / 2);
-//        g2.scale(scale, scale);
-//        g2.translate( width() / -2, height() / -2);
-
+    private void rescaleAnimals(){
         Iterator ai = animals.iterator();
 
         while(ai.hasNext()){
@@ -59,9 +60,47 @@ public class  CampusPanel extends JPanel{
         }
     }
 
-    private class CampusMouseListener extends MouseAdapter{
-//        public void mouseDragged(MouseEvent e){
-//            System.out.println("campus dragged");
-//        }
+    private void scaleSize(){
+        int w = Math.round((float) (scale * originalSize.width));
+        int h = Math.round((float) (scale * originalSize.height));
+        setSize(new Dimension(w, h));
+    }
+
+    public void setLocation(Point location){
+        currentLocation = location;
+        super.setLocation(location);
+    }
+
+    private void superSetLocation(Point location){
+        super.setLocation(location);
+    }
+
+    public int width(){ return getSize().width; }
+    public int height(){ return getSize().height; }
+
+    public class MouseActionAdapter extends MouseAdapter {
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            currentLocation = getLocation();
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            currentLocation = getLocation();
+            originalMouseLocation = e.getLocationOnScreen();
+        }
+    }
+
+    public class MouseDragAdapter extends MouseAdapter{
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            int dx = originalMouseLocation.x - e.getLocationOnScreen().x;
+            int dy = originalMouseLocation.y - e.getLocationOnScreen().y;
+            int newX = Math.min(0, currentLocation.x - dx);
+            int newY = Math.min(0, currentLocation.y - dy);
+            newX = Math.max(newX, -(width() - parentSize.width) );
+            newY = Math.max(newY, -(height() - parentSize.height) );
+            superSetLocation(new Point(newX, newY));
+        }
     }
 }

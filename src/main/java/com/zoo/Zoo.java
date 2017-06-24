@@ -11,6 +11,7 @@ public class Zoo {
     private JFrame zooFrame;
     private AnimalPanel animalPanel;
     private CampusPanel campusPanel;
+    private ScalingPanel scalingPanel;
     private ArrayList<Animal> animals = new ArrayList(10);
 
     public Zoo(String name) {
@@ -23,14 +24,15 @@ public class Zoo {
 
         animalPanel = new AnimalPanel(animals, new Dimension(100, 80 * animals.size()));
         animalPanel.addPanelListener((animal) -> {
-                animal.setLocation(new Point(100, 100));
+            animal.setLocation(new Point(100, 100));
             campusPanel.addAnimal(animal);
-            campusPanel.repaint();
         });
-        campusPanel = new CampusPanel(new Point(100, 0), new Dimension(width - 100, height));
+
+        scalingPanel = new ScalingPanel(new Point(100, 0), new Dimension(width - 100, height));
+        campusPanel = scalingPanel.campusPanel();
 
         zooFrame.add(animalPanel);
-        zooFrame.add(campusPanel);
+        zooFrame.add(scalingPanel);
         zooFrame.setVisible(true);
     }
 }
