@@ -26,7 +26,6 @@ public class Zoo {
         animalPanel.addPanelListener((animal) -> {
             animal.setLocation(new Point(100, 100));
             campusPanel.addAnimal(animal);
-            campusPanel.repaint();
         });
 
         scalingPanel = new ScalingPanel(new Point(100, 0), new Dimension(width - 100, height));

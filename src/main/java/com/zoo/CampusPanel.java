@@ -32,6 +32,7 @@ public class  CampusPanel extends JPanel{
         animal.addParent(this);
         animals.add(animal);
         add(animal);
+        animal.setScale(scale);
     }
 
     public void scale(MouseWheelEvent e){
@@ -42,7 +43,6 @@ public class  CampusPanel extends JPanel{
             scale -= scrollScale;
             if (scale < 1) scale = 1;
         }
-        System.out.println(e.getX());
         e.getY();
         rescale();
     }
@@ -50,7 +50,6 @@ public class  CampusPanel extends JPanel{
     private void rescale(){
         scaleSize();
         rescaleAnimals();
-        repaint();
     }
 
     private void rescaleAnimals(){
