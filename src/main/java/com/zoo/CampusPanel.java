@@ -12,23 +12,16 @@ public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
     private double scale = 1;
     private double scrollScale = .01;
+    private Dimension originalSize;
 
     public CampusPanel(Point topLeft, Dimension size){
         setLocation(topLeft);
+        originalSize = size;
         setSize(size);
         setOpaque(true);
         setBackground(Color.GREEN);
         setLayout(null);
-        addMouseMotionListener(new CampusMouseListener());
-        mouseWheelListener();
         setVisible(true);
-    }
-
-    private void mouseWheelListener(){
-        addMouseWheelListener((e) -> {
-            scale += (e.getUnitsToScroll() > 0 ? scrollScale : -scrollScale);
-            repaint();
-        });
     }
 
     public void addAnimal(Animal animal){
@@ -36,10 +29,36 @@ public class  CampusPanel extends JPanel{
         add(animal);
     }
 
-    public Dimension scaledSize(){
-        int w = Math.round((float) (scale * getSize().width));
-        int h = Math.round((float) (scale * getSize().height));
-        return new Dimension(w, h);
+    public void scaleUp(){
+        scale += scrollScale;
+        rescale();
+    }
+
+    public void scaleDown(){
+        if(scale == 1) return;
+        scale -= scrollScale;
+        if(scale < 1) scale = 1;
+        rescale();
+    }
+
+    private void rescale(){
+        scaleSize();
+        rescaleAnimals();
+        repaint();
+    }
+
+    private void rescaleAnimals(){
+        Iterator ai = animals.iterator();
+
+        while(ai.hasNext()){
+            ((Animal) ai.next()).setScale(scale);
+        }
+    }
+
+    private void scaleSize(){
+        int w = Math.round((float) (scale * originalSize.width));
+        int h = Math.round((float) (scale * originalSize.height));
+        setSize(new Dimension(w, h));
     }
 
     public int width(){ return getSize().width; }
@@ -52,16 +71,6 @@ public class  CampusPanel extends JPanel{
 //        g2.scale(scale, scale);
 //        g2.translate( width() / -2, height() / -2);
 
-        Iterator ai = animals.iterator();
 
-        while(ai.hasNext()){
-            ((Animal) ai.next()).setScale(scale);
-        }
-    }
-
-    private class CampusMouseListener extends MouseAdapter{
-//        public void mouseDragged(MouseEvent e){
-//            System.out.println("campus dragged");
-//        }
     }
 }
