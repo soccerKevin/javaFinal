@@ -22,12 +22,10 @@ public class Zoo {
         zooFrame.setLayout(null);
 
         animalPanel = new AnimalPanel(animals, new Dimension(100, 80 * animals.size()));
-        animalPanel.addPanelListener(new PanelListener(){
-            public void animalClicked(Animal animal){
+        animalPanel.addPanelListener((animal) -> {
                 animal.setLocation(new Point(100, 100));
-                campusPanel.addAnimal(animal);
-                campusPanel.repaint();
-            }
+            campusPanel.addAnimal(animal);
+            campusPanel.repaint();
         });
         campusPanel = new CampusPanel(new Point(100, 0), new Dimension(width - 100, height));
 
