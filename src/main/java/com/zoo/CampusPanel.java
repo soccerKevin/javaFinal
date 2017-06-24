@@ -1,4 +1,6 @@
 package com.zoo;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.*;
@@ -9,6 +11,7 @@ import javax.swing.*;
 public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
     private double scale = 1;
+    private double scrollScale = .01;
 
     public CampusPanel(Point topLeft, Dimension size){
         setLocation(topLeft);
@@ -17,13 +20,20 @@ public class  CampusPanel extends JPanel{
         setBackground(Color.GREEN);
         setLayout(null);
         addMouseMotionListener(new CampusMouseListener());
+        mouseWheelListener();
         setVisible(true);
+    }
+
+    private void mouseWheelListener(){
+        addMouseWheelListener((e) -> {
+            scale += (e.getUnitsToScroll() > 0 ? scrollScale : -scrollScale);
+            repaint();
+        });
     }
 
     public void addAnimal(Animal animal){
         animals.add(animal);
         add(animal);
-        repaint();
     }
 
     public Dimension scaledSize(){
@@ -45,9 +55,7 @@ public class  CampusPanel extends JPanel{
         Iterator ai = animals.iterator();
 
         while(ai.hasNext()){
-            Animal animal = (Animal) ai.next();
-            animal.setSize(new Dimension(((int) scale * 100), ((int) scale * 100) ));
-            animal.setScale(scale);
+            ((Animal) ai.next()).setScale(scale);
         }
     }
 

@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Animal extends JPanel{
     private String name, imagePath;
     private Image image;
+    private Dimension originalSize = new Dimension(100, 100);
     private UUID uuid;
     private double scale = 1;
 
@@ -24,6 +25,9 @@ public class Animal extends JPanel{
 
     public void setScale(double scale){
         this.scale = scale;
+        int w = (int) Math.round(scale * originalSize.width );
+        int h = (int) Math.round(scale * originalSize.height );
+        setSize(new Dimension(w, h));
     }
 
     public Animal softClone(){
@@ -31,20 +35,13 @@ public class Animal extends JPanel{
     }
 
     public UUID uuid(){ return this.uuid; }
-    public String name(){
-        return name;
-    }
+    public String name(){ return name; }
     public String imagePath(){ return imagePath; }
     public int width(){ return getSize().width; }
     public int height(){ return getSize().height; }
 
     public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.translate(width() / 2, height() / 2);
-        g2.scale(scale, scale);
-        g2.translate( width() / -2, height() / -2);
-        g2.drawImage(image, 0, 0, width(), height(), this);
+        g.drawImage(image, 0, 0, width(), height(), this);
     }
 
     public class AnimalMouseAdapter extends MouseAdapter{

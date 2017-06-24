@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Zoo {
-    private static final int width = 800;
-    private static final int height = 600;
+    private static final int width = 1200;
+    private static final int height = 800;
     private String name;
     private JFrame zooFrame;
     private AnimalPanel animalPanel;
