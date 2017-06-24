@@ -10,6 +10,7 @@ import javax.swing.*;
 
 public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
+    private ArrayList<Region> regions = new ArrayList(30);
     private double scale = 1;
     private double scrollScale = .01;
     private Dimension originalSize, parentSize;
@@ -26,6 +27,11 @@ public class  CampusPanel extends JPanel{
         addMouseMotionListener(new MouseDragAdapter());
         addMouseListener(new MouseActionAdapter());
         setVisible(true);
+    }
+
+    public void addRegion(Region region){
+        regions.add(region);
+        repaint();
     }
 
     public void addAnimal(Animal animal){
@@ -77,6 +83,15 @@ public class  CampusPanel extends JPanel{
 
     public int width(){ return getSize().width; }
     public int height(){ return getSize().height; }
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+
+        Iterator ri = regions.iterator();
+        while(ri.hasNext()){
+            ((Region) ri.next()).paint(g);
+        }
+    }
 
     public class MouseActionAdapter extends MouseAdapter {
         @Override

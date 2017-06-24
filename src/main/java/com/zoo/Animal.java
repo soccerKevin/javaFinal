@@ -35,6 +35,10 @@ public class Animal extends JPanel{
         this.parent = parent;
     }
 
+    public Point center(){
+        return new Point(getLocation().x + width() / 2, getLocation().y + height() / 2);
+    }
+
     public void setScale(double scale){
         this.scale = scale;
         int w = (int) Math.round(scale * originalSize.width );
