@@ -13,7 +13,7 @@ public class ScalingPanel extends JPanel{
         setLayout(null);
         mouseWheelListener();
         setVisible(true);
-        campusPanel = new CampusPanel(new Point(0, 0), new Dimension(width(), height()));
+        campusPanel = new CampusPanel(new Point(0, 0), new Dimension(2000, 2000));
         add(campusPanel);
     }
 
@@ -23,11 +23,7 @@ public class ScalingPanel extends JPanel{
 
     private void mouseWheelListener(){
         addMouseWheelListener((e) -> {
-            if(e.getUnitsToScroll() > 0){
-                campusPanel.scaleUp();
-            }else {
-                campusPanel.scaleDown();
-            }
+            campusPanel.scale(e);
         });
     }
 

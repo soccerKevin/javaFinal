@@ -1,10 +1,10 @@
 package com.zoo;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseWheelEvent;
+import java.awt.*;
+
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
@@ -13,6 +13,7 @@ public class  CampusPanel extends JPanel{
     private double scale = 1;
     private double scrollScale = .01;
     private Dimension originalSize;
+    private Point currentLocation, originalMouseLocation;
 
     public CampusPanel(Point topLeft, Dimension size){
         setLocation(topLeft);
@@ -21,6 +22,8 @@ public class  CampusPanel extends JPanel{
         setOpaque(true);
         setBackground(Color.GREEN);
         setLayout(null);
+        addMouseMotionListener(new MouseDragAdapter());
+        addMouseListener(new MouseActionAdapter());
         setVisible(true);
     }
 
@@ -29,15 +32,16 @@ public class  CampusPanel extends JPanel{
         add(animal);
     }
 
-    public void scaleUp(){
-        scale += scrollScale;
-        rescale();
-    }
-
-    public void scaleDown(){
-        if(scale == 1) return;
-        scale -= scrollScale;
-        if(scale < 1) scale = 1;
+    public void scale(MouseWheelEvent e){
+        if(e.getUnitsToScroll() > 0) {
+            scale += scrollScale;
+        }else {
+            if (scale == 1) return;
+            scale -= scrollScale;
+            if (scale < 1) scale = 1;
+        }
+        System.out.println(e.getX());
+        e.getY();
         rescale();
     }
 
@@ -61,16 +65,39 @@ public class  CampusPanel extends JPanel{
         setSize(new Dimension(w, h));
     }
 
+    public void setLocation(Point location){
+        currentLocation = location;
+        super.setLocation(location);
+    }
+
+    private void superSetLocation(Point location){
+        super.setLocation(location);
+    }
+
     public int width(){ return getSize().width; }
     public int height(){ return getSize().height; }
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-//        Graphics2D g2 = (Graphics2D) g;
-//        g2.translate(width() / 2, height() / 2);
-//        g2.scale(scale, scale);
-//        g2.translate( width() / -2, height() / -2);
+    public class MouseActionAdapter extends MouseAdapter {
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            currentLocation = getLocation();
+        }
 
+        @Override
+        public void mousePressed(MouseEvent e) {
+            currentLocation = getLocation();
+            originalMouseLocation = e.getLocationOnScreen();
+        }
+    }
 
+    public class MouseDragAdapter extends MouseAdapter{
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            int dx = originalMouseLocation.x - e.getLocationOnScreen().x;
+            int dy = originalMouseLocation.y - e.getLocationOnScreen().y;
+            int newX = Math.min(0, currentLocation.x - dx);
+            int newY = Math.min(0,currentLocation.y - dy);
+            superSetLocation(new Point(newX, newY));
+        }
     }
 }
