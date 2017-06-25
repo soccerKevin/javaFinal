@@ -1,25 +1,39 @@
 package com.zoo;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Region extends JPanel{
+public class Region extends Polygon{
     private Color color;
-    private double scale;
-    private Polygon polygon = new Polygon();
-
-    public Region(){
-        super();
-        setVisible(true);
-    }
+    private double scale = 1;
+    private ArrayList<Point> points = new ArrayList(10);
 
 
     public void setScale(double scale){
         this.scale = scale;
+        super.reset();
+
+        Iterator pi = points.iterator();
+        while(pi.hasNext()){
+            Point point = (Point) pi.next();
+            int x = (int) Math.round(scale * point.x);
+            int y = (int) Math.round(scale * point.y);
+            super.addPoint(x, y);
+        }
     }
 
-    public void addPoint(int width, int height){
-        polygon.addPoint(width, height);
+    public void addPoint(int x, int y){ addPoint(new Point(x, y)); }
+
+    public void addPoint(Point p){
+        points.add(p);
+        int x = (int) Math.round(scale * p.x);
+        int y = (int) Math.round(scale * p.y);
+        super.addPoint(x, y);
+    }
+
+    public void reset(){
+        points = new ArrayList<>(10);
+        reset();
     }
 
     public void setColor(Color color){
@@ -28,16 +42,6 @@ public class Region extends JPanel{
 
     public void paintComponent(Graphics g){
         g.setColor(color);
-        Graphics2D g2d = (Graphics2D) g;
-        AffineTransform saveTransform = g2d.getTransform();
-
-        try {
-            AffineTransform scaleMatrix = new AffineTransform();
-            scaleMatrix.scale(scale, scale);
-            g2d.setTransform(scaleMatrix);
-            g2d.fillPolygon(polygon);
-        } finally {
-            g2d.setTransform(saveTransform);
-        }
+        g.fillPolygon(this);
     }
 }

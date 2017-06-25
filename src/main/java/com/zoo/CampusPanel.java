@@ -15,6 +15,7 @@ public class  CampusPanel extends JPanel{
     private double scrollScale = .01;
     private Dimension originalSize, parentSize;
     private Point currentLocation, originalMouseLocation;
+    private JPanel regionPanel;
 
     public CampusPanel(Point topLeft, Dimension size, Dimension parentSize){
         originalSize = size;
@@ -32,8 +33,6 @@ public class  CampusPanel extends JPanel{
     public void addRegion(Region region){
         regions.add(region);
         region.setScale(scale);
-        add(region);
-//        setComponentZOrder(region, 100);
         repaint();
     }
 
@@ -42,7 +41,6 @@ public class  CampusPanel extends JPanel{
         animals.add(animal);
         add(animal);
         animal.setScale(scale);
-//        setComponentZOrder(animal, 200);
     }
 
     public void scale(MouseWheelEvent e){
@@ -118,13 +116,16 @@ public class  CampusPanel extends JPanel{
     public class MouseDragAdapter extends MouseAdapter{
         @Override
         public void mouseDragged(MouseEvent e) {
-            System.out.println("Campus mouse dragged");
             int dx = originalMouseLocation.x - e.getLocationOnScreen().x;
             int dy = originalMouseLocation.y - e.getLocationOnScreen().y;
-            int newX = Math.min(0, currentLocation.x - dx);
-            int newY = Math.min(0, currentLocation.y - dy);
-            newX = Math.max(newX, -(width() - parentSize.width) );
-            newY = Math.max(newY, -(height() - parentSize.height) );
+            int newX = currentLocation.x - dx;
+            int newY = currentLocation.y - dy;
+            System.out.println("newX: " + newX);
+            System.out.println("newY: " + newY);
+//            newX = Math.min(0, newX);
+//            newY = Math.min(0, newY);
+//            newX = Math.max(newX, -(width() - parentSize.width) );
+//            newY = Math.max(newY, -(height() - parentSize.height) );
             superSetLocation(new Point(newX, newY));
         }
     }
