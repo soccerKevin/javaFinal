@@ -11,11 +11,11 @@ import javax.swing.*;
 public class  CampusPanel extends JPanel{
     private ArrayList<Animal> animals = new ArrayList(30);
     private ArrayList<Region> regions = new ArrayList(30);
+    private ArrayList<TextListener> textListeners = new ArrayList(10);
     private double scale = 1;
     private double scrollScale = .01;
     private Dimension originalSize, parentSize;
     private Point currentLocation, originalMouseLocation;
-    private JPanel regionPanel;
 
     public CampusPanel(Point topLeft, Dimension size, Dimension parentSize){
         originalSize = size;
@@ -28,6 +28,10 @@ public class  CampusPanel extends JPanel{
         addMouseMotionListener(new MouseDragAdapter());
         addMouseListener(new MouseActionAdapter());
         setVisible(true);
+    }
+
+    public void addTextListener(TextListener listener){
+        textListeners.add(listener);
     }
 
     public void addRegion(Region region){
@@ -47,14 +51,43 @@ public class  CampusPanel extends JPanel{
         if(e.getUnitsToScroll() > 0) {
             scale += scrollScale;
         }else {
-            if (scale == 1) return;
+            if (scale == .4) return;
             scale -= scrollScale;
-            if (scale < 1) scale = 1;
+            if (scale < .4) scale = .4;
         }
         scaleSize();
         scaleAnimals();
         scaleRegions();
         repaint();
+    }
+
+    public void displayAnimalRegion(Animal animal){
+        String text;
+        Region region = animalRegion(animal);
+        if(region != null) {
+            text = "The " + animal.name() + " is in the " + region.name();
+        }else{
+            text = "The " + animal.name() + " is not in a region";
+        }
+        displayText(text);
+    }
+
+    private void displayText(String text){
+        Iterator ti = textListeners.iterator();
+        while(ti.hasNext()){
+            ((TextListener) ti.next()).display(text);
+        }
+    }
+
+    public Region animalRegion(Animal animal){
+        Point animalCenter = animal.center();
+        Iterator ri  = regions.iterator();
+        while(ri.hasNext()){
+            Region region = (Region) ri.next();
+            boolean inRegion = region.contains(animalCenter);
+            if(inRegion) return region;
+        }
+        return null;
     }
 
     private void scaleRegions(){
@@ -120,12 +153,10 @@ public class  CampusPanel extends JPanel{
             int dy = originalMouseLocation.y - e.getLocationOnScreen().y;
             int newX = currentLocation.x - dx;
             int newY = currentLocation.y - dy;
-            System.out.println("newX: " + newX);
-            System.out.println("newY: " + newY);
-//            newX = Math.min(0, newX);
-//            newY = Math.min(0, newY);
-//            newX = Math.max(newX, -(width() - parentSize.width) );
-//            newY = Math.max(newY, -(height() - parentSize.height) );
+            newX = Math.min(0, newX);
+            newY = Math.min(0, newY);
+            newX = Math.max(newX, -(width() - parentSize.width) );
+            newY = Math.max(newY, -(height() - parentSize.height) );
             superSetLocation(new Point(newX, newY));
         }
     }
