@@ -30,6 +30,12 @@ public class Zoo {
         scalingPanel = new ScalingPanel(new Point(100, 0), new Dimension(width - 100, height));
         campusPanel = scalingPanel.campusPanel();
         createRegions();
+        campusPanel.addTextListener((text) ->{
+            JOptionPane optionPane = new JOptionPane(text,JOptionPane.YES_OPTION);
+            JDialog dialog = optionPane.createDialog(text);
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+        });
 
         zooFrame.add(animalPanel);
         zooFrame.add(scalingPanel);
@@ -57,7 +63,7 @@ public class Zoo {
     }
 
     private Region region1(){
-        Region r = new Region();
+        Region r = new Region("Blue Park");
         r.addPoint(0, 0);
         r.addPoint(300, 0);
         r.addPoint(340, 100);
@@ -68,7 +74,7 @@ public class Zoo {
     }
 
     private Region region2(){
-        Region r = new Region();
+        Region r = new Region("Red Park");
         r.addPoint(500, 100);
         r.addPoint(750, 120);
         r.addPoint(850, 300);
@@ -79,7 +85,7 @@ public class Zoo {
     }
 
     private Region region3(){
-        Region r = new Region();
+        Region r = new Region("Gray Park");
         r.addPoint(200, 400);
         r.addPoint(100, 600);
         r.addPoint(150, 700);
@@ -90,7 +96,7 @@ public class Zoo {
     }
 
     private Region region4(){
-        Region r = new Region();
+        Region r = new Region("Pink Park");
         r.addPoint(1200, 1700);
         r.addPoint(1350, 1850);
         r.addPoint(1250, 1950);
@@ -101,7 +107,7 @@ public class Zoo {
     }
 
     private Region region5(){
-        Region r = new Region();
+        Region r = new Region("Magenta Park");
         r.addPoint(1200, 1200);
         r.addPoint(1500, 1300);
         r.addPoint(1400, 1500);
@@ -112,7 +118,7 @@ public class Zoo {
     }
 
     private Region region6(){
-        Region r = new Region();
+        Region r = new Region("Yellow Park");
         r.addPoint(200, 1500);
         r.addPoint(500, 1400);
         r.addPoint(600, 1800);

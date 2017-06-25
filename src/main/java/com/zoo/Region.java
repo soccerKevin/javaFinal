@@ -3,11 +3,27 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Region extends Polygon{
+public class Region extends Polygon {
     private Color color;
     private double scale = 1;
+    private String name;
     private ArrayList<Point> points = new ArrayList(10);
 
+    public Region(String name){
+        super();
+        this.name = name;
+    }
+
+    public String name(){
+        return name;
+    }
+
+    public void addPoint(Point p){
+        points.add(p);
+        int x = (int) Math.round(scale * p.x);
+        int y = (int) Math.round(scale * p.y);
+        super.addPoint(x, y);
+    }
 
     public void setScale(double scale){
         this.scale = scale;
@@ -22,13 +38,8 @@ public class Region extends Polygon{
         }
     }
 
-    public void addPoint(int x, int y){ addPoint(new Point(x, y)); }
-
-    public void addPoint(Point p){
-        points.add(p);
-        int x = (int) Math.round(scale * p.x);
-        int y = (int) Math.round(scale * p.y);
-        super.addPoint(x, y);
+    public void addPoint(int x, int y){
+        addPoint(new Point(x, y));
     }
 
     public void reset(){

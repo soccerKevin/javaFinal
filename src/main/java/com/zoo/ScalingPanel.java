@@ -17,16 +17,13 @@ public class ScalingPanel extends JPanel{
         add(campusPanel);
     }
 
-    public CampusPanel campusPanel(){
-        return campusPanel;
-    }
-
     private void mouseWheelListener(){
         addMouseWheelListener((e) -> {
             campusPanel.scale(e);
         });
     }
 
+    public CampusPanel campusPanel(){ return campusPanel; }
     public int width(){ return getSize().width; }
     public int height(){ return getSize().height; }
 }

@@ -9,7 +9,7 @@ public class Animal extends JPanel{
     private String name, imagePath;
     private Image image;
     private Dimension originalSize = new Dimension(100, 100);
-    private JPanel parent = new JPanel();
+    private CampusPanel parent;
     private Point currentLocation;
     private UUID uuid;
     private double scale = 1;
@@ -32,7 +32,7 @@ public class Animal extends JPanel{
         super.setLocation(location);
     }
 
-    public void addParent(JPanel parent){
+    public void addParent(CampusPanel parent){
         this.parent = parent;
     }
 
@@ -55,6 +55,10 @@ public class Animal extends JPanel{
         return new Animal(this.name, this.imagePath);
     }
 
+    private void displayRegion(){
+        parent.displayAnimalRegion(this);
+    }
+
     public UUID uuid(){ return this.uuid; }
     public String name(){ return name; }
     public String imagePath(){ return imagePath; }
@@ -75,7 +79,10 @@ public class Animal extends JPanel{
         public void mouseReleased(MouseEvent e) {
             currentLocation = getLocation();
         }
-
+        @Override
+        public void mouseClicked(MouseEvent e){
+            displayRegion();
+        }
     }
 
     public class MouseDragAdapter extends MouseAdapter{
