@@ -21,6 +21,7 @@ public class Animal extends JPanel{
         this.image = new ImageIcon( imagePath ).getImage();
         this.uuid = UUID.randomUUID();
         setBackground(new Color(0, 0, 0, 0));
+        setOpaque(false);
         addMouseMotionListener(new MouseDragAdapter());
         addMouseListener(new MouseActionAdapter());
         setVisible(true);
@@ -33,6 +34,10 @@ public class Animal extends JPanel{
 
     public void addParent(JPanel parent){
         this.parent = parent;
+    }
+
+    public Point center(){
+        return new Point(getLocation().x + width() / 2, getLocation().y + height() / 2);
     }
 
     public void setScale(double scale){
@@ -57,6 +62,7 @@ public class Animal extends JPanel{
     public int height(){ return getSize().height; }
 
     public void paintComponent(Graphics g){
+        parent.repaint();
         g.drawImage(image, 0, 0, width(), height(), this);
     }
 
