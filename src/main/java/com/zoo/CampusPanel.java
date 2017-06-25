@@ -31,6 +31,9 @@ public class  CampusPanel extends JPanel{
 
     public void addRegion(Region region){
         regions.add(region);
+        region.setScale(scale);
+        add(region);
+//        setComponentZOrder(region, 100);
         repaint();
     }
 
@@ -39,6 +42,7 @@ public class  CampusPanel extends JPanel{
         animals.add(animal);
         add(animal);
         animal.setScale(scale);
+//        setComponentZOrder(animal, 200);
     }
 
     public void scale(MouseWheelEvent e){
@@ -49,16 +53,21 @@ public class  CampusPanel extends JPanel{
             scale -= scrollScale;
             if (scale < 1) scale = 1;
         }
-        e.getY();
-        rescale();
-    }
-
-    private void rescale(){
         scaleSize();
-        rescaleAnimals();
+        scaleAnimals();
+        scaleRegions();
+        repaint();
     }
 
-    private void rescaleAnimals(){
+    private void scaleRegions(){
+        Iterator ai = regions.iterator();
+
+        while(ai.hasNext()){
+            ((Region) ai.next()).setScale(scale);
+        }
+    }
+
+    private void scaleAnimals(){
         Iterator ai = animals.iterator();
 
         while(ai.hasNext()){
@@ -89,7 +98,7 @@ public class  CampusPanel extends JPanel{
 
         Iterator ri = regions.iterator();
         while(ri.hasNext()){
-            ((Region) ri.next()).paint(g);
+            ((Region) ri.next()).paintComponent(g);
         }
     }
 
@@ -109,6 +118,7 @@ public class  CampusPanel extends JPanel{
     public class MouseDragAdapter extends MouseAdapter{
         @Override
         public void mouseDragged(MouseEvent e) {
+            System.out.println("Campus mouse dragged");
             int dx = originalMouseLocation.x - e.getLocationOnScreen().x;
             int dy = originalMouseLocation.y - e.getLocationOnScreen().y;
             int newX = Math.min(0, currentLocation.x - dx);
